@@ -671,6 +671,10 @@ transform: translate(0px, -1px); */
         max-width: 820px;
     }
 
+    .signinButton__holder {
+        position: static;
+    }
+
     .flex__space-between__holder,
     .flex__column__space-between__holder,
    .flex__space-around__holder,
@@ -691,8 +695,7 @@ transform: translate(0px, -1px); */
     margin-left: auto;
 }
 
-   .mobile__responsive__holder {
-    display: none;
+.mobile__responsive__holder {
     position: fixed;
     top: 0;
     right: 0;
@@ -702,14 +705,19 @@ transform: translate(0px, -1px); */
     width: 250px;
     height: 100vh;
     line-height: 60px;
-    transform: translateX(100%);
-    transition: transform 0.5s cubic-bezier(0.08, 0.15, 0.09, 0.93);
+    transform: translateX(100%); /* Initially off-screen */
+    opacity: 0; /* Initially hidden */
     background-color: var(--white);
     box-shadow: var(--header-shadow);
-    opacity: 0;
     z-index: 9;
-    /* transition: transform 10s cubic-bezier(0.08, 0.15, 0.09, 0.93); */
-   }
+    transition: transform 0.5s cubic-bezier(0.08, 0.15, 0.09, 0.93), opacity 0.5s ease; /* Add transitions here */
+}
+
+/* Make sure to set the "open" class with correct transform/opacity values */
+.mobile__responsive__holder.open {
+    transform: translateX(0); /* Menu is on screen */
+    opacity: 1; /* Make it visible */
+}
 
    /* .header__holder
    .mobile__responsive__holder {
@@ -742,11 +750,15 @@ transform: translate(0px, -1px); */
     height: 100%;
     width: 100%;
     display: none;
-    opacity: 1;
     background: rgba(51, 51, 51, 0.246);
-    transition: opacity 0.5s cubic-bezier(0.08, 0.15, 0.09, 0.93);
     z-index: 5;
+    transition: opacity 0.3s ease;
   }
+
+  .overlay.active {
+    display: block;
+    opacity: 1;
+}
 }
 
 @media (max-width: 670px){
@@ -780,10 +792,6 @@ transform: translate(0px, -1px); */
     .left__side .description h1 {
         font-size: 35px;
     }
-
-    .common__text__style {
-        font-size: 12px;
-    }
 }
 
 @media (max-width: 768px){
@@ -799,6 +807,10 @@ transform: translate(0px, -1px); */
 @media (max-width: 576px){
     .container {
         max-width: 400px;
+    }
+
+    .divider {
+        height: 6rem;
     }
 
     .padding__common__section {
